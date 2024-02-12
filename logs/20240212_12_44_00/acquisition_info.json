@@ -1,0 +1,54 @@
+{
+    "tags": [
+        {
+            "l": "stationary_not_upright",
+            "e": true,
+            "ta": "2000-01-01T01:09:18.295Z"
+        },
+        {
+            "l": "stationary_not_upright",
+            "e": false,
+            "ta": "2000-01-01T01:09:21.917Z"
+        },
+        {
+            "l": "stationary_upright",
+            "e": true,
+            "ta": "2000-01-01T01:09:23.194Z"
+        },
+        {
+            "l": "stationary_upright",
+            "e": false,
+            "ta": "2000-01-01T01:09:27.321Z"
+        },
+        {
+            "l": "motion",
+            "e": true,
+            "ta": "2000-01-01T01:09:28.271Z"
+        },
+        {
+            "l": "motion",
+            "e": false,
+            "ta": "2000-01-01T01:09:32.139Z"
+        },
+        {
+            "l": "shaken",
+            "e": true,
+            "ta": "2000-01-01T01:09:32.764Z"
+        },
+        {
+            "l": "shaken",
+            "e": false,
+            "ta": "2000-01-01T01:09:36.000Z"
+        }
+    ],
+    "name": "20240212_12_44_00",
+    "description": "20240212_12_44_00",
+    "uuid": "27675a99-3ffe-4cbc-9017-9c333f240a5a",
+    "start_time": "2000-01-01T01:09:17.000Z",
+    "end_time": "2000-01-01T01:09:36.000Z",
+    "data_ext": ".dat",
+    "data_fmt": "HSD_2.0.0",
+    "interface": 1,
+    "schema_version": "2.0.0",
+    "c_type": 2
+}

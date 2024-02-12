@@ -1,0 +1,291 @@
+{
+    "schema_version": "2.0.0",
+    "uuid": "27675a99-3ffe-4cbc-9017-9c333f240a5a",
+    "devices": [
+        {
+            "board_id": 13,
+            "fw_id": 10,
+            "sn": "0035001B5752501520353339",
+            "components": [
+                {
+                    "lis2du12_acc": {
+                        "odr": 7,
+                        "fs": 3,
+                        "enable": false,
+                        "samples_per_ts": 1000,
+                        "dim": 3,
+                        "ioffset": 0,
+                        "measodr": 0,
+                        "usb_dps": 0,
+                        "sd_dps": 2048,
+                        "sensitivity": 0.00048799999058246623,
+                        "data_type": "int16",
+                        "sensor_category": 0,
+                        "c_type": 0,
+                        "stream_id": -1,
+                        "ep_id": -1
+                    }
+                },
+                {
+                    "lis2mdl_mag": {
+                        "odr": 3,
+                        "fs": 0,
+                        "enable": false,
+                        "samples_per_ts": 100,
+                        "dim": 3,
+                        "ioffset": 0,
+                        "measodr": 0,
+                        "usb_dps": 0,
+                        "sd_dps": 512,
+                        "sensitivity": 0.001500000013038516,
+                        "data_type": "int16",
+                        "sensor_category": 0,
+                        "c_type": 0,
+                        "stream_id": -1,
+                        "ep_id": -1
+                    }
+                },
+                {
+                    "lps22df_press": {
+                        "odr": 7,
+                        "fs": 0,
+                        "enable": false,
+                        "samples_per_ts": 200,
+                        "dim": 1,
+                        "ioffset": 0,
+                        "measodr": 0,
+                        "usb_dps": 0,
+                        "sd_dps": 512,
+                        "sensitivity": 1,
+                        "data_type": "float",
+                        "sensor_category": 0,
+                        "c_type": 0,
+                        "stream_id": -1,
+                        "ep_id": -1
+                    }
+                },
+                {
+                    "mp23db01hp_mic": {
+                        "odr": 2,
+                        "aop": 0,
+                        "enable": false,
+                        "samples_per_ts": 1000,
+                        "dim": 1,
+                        "ioffset": 0,
+                        "measodr": 0,
+                        "usb_dps": 0,
+                        "sd_dps": 31744,
+                        "sensitivity": 1,
+                        "data_type": "int16",
+                        "sensor_category": 1,
+                        "c_type": 0,
+                        "stream_id": -1,
+                        "ep_id": -1
+                    }
+                },
+                {
+                    "lsm6dsv16x_acc": {
+                        "odr": 6,
+                        "fs": 1,
+                        "enable": true,
+                        "samples_per_ts": 480,
+                        "dim": 3,
+                        "ioffset": 0.1812172532081604,
+                        "measodr": 487.7249450683594,
+                        "usb_dps": 144,
+                        "sd_dps": 15360,
+                        "sensitivity": 0.0001219999976456165,
+                        "data_type": "int16",
+                        "sensor_category": 0,
+                        "c_type": 0,
+                        "stream_id": 1,
+                        "ep_id": 1
+                    }
+                },
+                {
+                    "lsm6dsv16x_gyro": {
+                        "odr": 9,
+                        "fs": 5,
+                        "enable": true,
+                        "samples_per_ts": 1000,
+                        "dim": 3,
+                        "ioffset": 0.1812172532081604,
+                        "measodr": 3901.799560546875,
+                        "usb_dps": 1152,
+                        "sd_dps": 15360,
+                        "sensitivity": 140,
+                        "data_type": "int16",
+                        "sensor_category": 0,
+                        "c_type": 0,
+                        "stream_id": 0,
+                        "ep_id": 0
+                    }
+                },
+                {
+                    "lsm6dsv16x_mlc": {
+                        "enable": false,
+                        "samples_per_ts": 1,
+                        "ucf_status": false,
+                        "dim": 5,
+                        "ioffset": 0,
+                        "data_type": "int8",
+                        "usb_dps": 0,
+                        "sd_dps": 0,
+                        "sensor_category": 0,
+                        "c_type": 0,
+                        "stream_id": -1,
+                        "ep_id": -1
+                    }
+                },
+                {
+                    "stts22h_temp": {
+                        "odr": 4,
+                        "fs": 0,
+                        "enable": false,
+                        "samples_per_ts": 200,
+                        "dim": 1,
+                        "ioffset": 0,
+                        "measodr": 0,
+                        "usb_dps": 0,
+                        "sd_dps": 512,
+                        "sensitivity": 1,
+                        "data_type": "float",
+                        "sensor_category": 0,
+                        "c_type": 0,
+                        "stream_id": -1,
+                        "ep_id": -1
+                    }
+                },
+                {
+                    "DeviceInformation": {
+                        "manufacturer": "STMicroelectronics",
+                        "model": "STEVAL-MKBOXPRO",
+                        "swVersion": "1.2.0",
+                        "osName": "AzureRTOS",
+                        "processorArchitecture": "ARM Cortex-M33",
+                        "processorManufacturer": "STMicroelectronics",
+                        "totalStorage": 4,
+                        "totalMemory": 784
+                    }
+                },
+                {
+                    "firmware_info": {
+                        "alias": "STBOX_PRO_001",
+                        "fw_name": "FP-SNS-DATALOG2_Datalog2",
+                        "fw_version": "1.2.1",
+                        "part_number": "STEVAL-MKBOXPRO",
+                        "device_url": "www.st.com/sensortileboxpro",
+                        "fw_url": "https://github.com/STMicroelectronics/fp-sns-datalog2",
+                        "mac_address": "eb:0:48:79:f5:30",
+                        "c_type": 2
+                    }
+                },
+                {
+                    "acquisition_info": {
+                        "tags": [
+                            {
+                                "l": "stationary_not_upright",
+                                "e": true,
+                                "ta": "2000-01-01T01:09:18.295Z"
+                            },
+                            {
+                                "l": "stationary_not_upright",
+                                "e": false,
+                                "ta": "2000-01-01T01:09:21.917Z"
+                            },
+                            {
+                                "l": "stationary_upright",
+                                "e": true,
+                                "ta": "2000-01-01T01:09:23.194Z"
+                            },
+                            {
+                                "l": "stationary_upright",
+                                "e": false,
+                                "ta": "2000-01-01T01:09:27.321Z"
+                            },
+                            {
+                                "l": "motion",
+                                "e": true,
+                                "ta": "2000-01-01T01:09:28.271Z"
+                            },
+                            {
+                                "l": "motion",
+                                "e": false,
+                                "ta": "2000-01-01T01:09:32.139Z"
+                            },
+                            {
+                                "l": "shaken",
+                                "e": true,
+                                "ta": "2000-01-01T01:09:32.764Z"
+                            },
+                            {
+                                "l": "shaken",
+                                "e": false,
+                                "ta": "2000-01-01T01:09:36.000Z"
+                            }
+                        ],
+                        "name": "20240212_12_44_00",
+                        "description": "20240212_12_44_00",
+                        "uuid": "27675a99-3ffe-4cbc-9017-9c333f240a5a",
+                        "start_time": "2000-01-01T01:09:17.000Z",
+                        "end_time": "2000-01-01T01:09:36.000Z",
+                        "data_ext": ".dat",
+                        "data_fmt": "HSD_2.0.0",
+                        "interface": 1,
+                        "schema_version": "2.0.0",
+                        "c_type": 2
+                    }
+                },
+                {
+                    "tags_info": {
+                        "max_tags_num": 100,
+                        "sw_tag0": {
+                            "label": "stationary_upright",
+                            "enabled": true,
+                            "status": false
+                        },
+                        "sw_tag1": {
+                            "label": "stationary_not_upright",
+                            "enabled": true,
+                            "status": false
+                        },
+                        "sw_tag2": {
+                            "label": "motion",
+                            "enabled": true,
+                            "status": false
+                        },
+                        "sw_tag3": {
+                            "label": "shaken",
+                            "enabled": true,
+                            "status": false
+                        },
+                        "sw_tag4": {
+                            "label": "SW_TAG_4",
+                            "enabled": true,
+                            "status": false
+                        },
+                        "c_type": 2
+                    }
+                },
+                {
+                    "log_controller": {
+                        "log_status": false,
+                        "sd_mounted": true,
+                        "controller_type": 0,
+                        "c_type": 2
+                    }
+                },
+                {
+                    "automode": {
+                        "enabled": false,
+                        "nof_acquisitions": 0,
+                        "start_delay_ms": 0,
+                        "datalog_time_length": 0,
+                        "idle_time_length": 0,
+                        "c_type": 2
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,518 @@
+{
+  "name": "mock-mlc-dataset",
+  "description": "Mocked MLC dataset description",
+  "id": "eoteayd6ymrkmfvslcb7h6zkk7gmrusl6d4j7po26wdgcephn5gq====",
+  "classes": [
+    "motion",
+    "shaken",
+    "stationary_not_upright",
+    "stationary_upright"
+  ],
+  "data": [
+    {
+      "start_time": "2000-01-01T00:00:36.379Z",
+      "end_time": "2000-01-01T01:09:17.000Z",
+      "class": "motion", 
+      "source_blob": {
+        "id": "wm4e2fnqozqczib24eqrl3wamzrhjgyxx6qpyze2a7iykpwuhanq====",
+        "metadata": {
+          "uuid": "09a21eff-1a81-414f-8383-569d36d933f7",
+          "name": "20240212_11_34_06",
+          "device_description": {
+            "part_number": "STEVAL-MKBOXPRO",
+            "serial_number": "005100335752501520353339",
+            "alias": "STBOX_PRO_001",
+            "fw_name": "FP-SNS-DATALOG2_Datalog2",
+            "fw_version": "1.2.1"
+          }
+        }
+      },
+      "files": [
+        {
+          "id": "rhlp4gw62oq37uctkeonbz745cyparaeuc5hdufpfe53sl6rzx6a====",
+          "type": "text/csv",
+          "extension": "csv",
+          "start_time": "2000-01-01T00:00:36.379Z",
+          "end_time": "2000-01-01T00:00:45.283Z",
+          "metadata": {
+            "components": [
+              {
+                "name": "lsm6dsv16x",
+                "sensors": [
+                  {
+                    "name": "lsm6dsv16x_acc",
+                    "config": {
+                      "odr": {
+                        "value": 7680,
+                        "unit": "Hz"
+                      },
+                      "fs": {
+                        "value": 16,
+                        "unit": "g"
+                      }
+                    }
+                  },
+                  {
+                    "name": "lsm6dsv16x_gyro",
+                    "config": {
+                      "odr": {
+                        "value": 1920,
+                        "unit": "Hz"
+                      },
+                      "fs": {
+                        "value": 2000,
+                        "unit": "mdps"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "start_time": "2000-01-01T00:00:36.379Z",
+      "end_time": "2000-01-01T00:00:45.283Z",
+      "class": "stationary_upright", 
+      "source_blob": {
+        "id": "wm4e2fnqozqczib24eqrl3wamzrhjgyxx6qpyze2a7iykpwuhanq====",
+        "metadata": {
+          "uuid": "09a21eff-1a81-414f-8383-569d36d933f7",
+          "name": "20240212_11_34_06",
+          "device_description": {
+            "part_number": "STEVAL-MKBOXPRO",
+            "serial_number": "005100335752501520353339",
+            "alias": "STBOX_PRO_001",
+            "fw_name": "FP-SNS-DATALOG2_Datalog2",
+            "fw_version": "1.2.1"
+          }
+        }
+      },
+      "files": [
+        {
+          "id": "ygp7fqe6jmsybmszwjppsqbmejmkt7pz5ksv5u3rfy7qewuehama====",
+          "type": "text/csv",
+          "extension": "csv",
+          "start_time": "2000-01-01T00:00:36.379Z",
+          "end_time": "2000-01-01T00:00:45.283Z",
+          "metadata": {
+            "components": [
+              {
+                "name": "lsm6dsv16x",
+                "sensors": [
+                  {
+                    "name": "lsm6dsv16x_acc",
+                    "config": {
+                      "odr": {
+                        "value": 7680,
+                        "unit": "Hz"
+                      },
+                      "fs": {
+                        "value": 16,
+                        "unit": "g"
+                      }
+                    }
+                  },
+                  {
+                    "name": "lsm6dsv16x_gyro",
+                    "config": {
+                      "odr": {
+                        "value": 1920,
+                        "unit": "Hz"
+                      },
+                      "fs": {
+                        "value": 2000,
+                        "unit": "mdps"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "start_time": "2000-01-01T00:00:36.379Z",
+      "end_time": "2000-01-01T00:00:45.283Z",
+      "class": "stationary_not_upright", 
+      "source_blob": {
+        "id": "wm4e2fnqozqczib24eqrl3wamzrhjgyxx6qpyze2a7iykpwuhanq====",
+        "metadata": {
+          "uuid": "09a21eff-1a81-414f-8383-569d36d933f7",
+          "name": "20240212_11_34_06",
+          "device_description": {
+            "part_number": "STEVAL-MKBOXPRO",
+            "serial_number": "005100335752501520353339",
+            "alias": "STBOX_PRO_001",
+            "fw_name": "FP-SNS-DATALOG2_Datalog2",
+            "fw_version": "1.2.1"
+          }
+        }
+      },
+      "files": [
+        {
+          "id": "klujd6fsvnoggakduuljaznzuzhwuhhk5o5tecneqyta6i2x5p6q====",
+          "type": "text/csv",
+          "extension": "csv",
+          "start_time": "2000-01-01T00:00:36.379Z",
+          "end_time": "2000-01-01T00:00:45.283Z",
+          "metadata": {
+            "components": [
+              {
+                "name": "lsm6dsv16x",
+                "sensors": [
+                  {
+                    "name": "lsm6dsv16x_acc",
+                    "config": {
+                      "odr": {
+                        "value": 7680,
+                        "unit": "Hz"
+                      },
+                      "fs": {
+                        "value": 16,
+                        "unit": "g"
+                      }
+                    }
+                  },
+                  {
+                    "name": "lsm6dsv16x_gyro",
+                    "config": {
+                      "odr": {
+                        "value": 1920,
+                        "unit": "Hz"
+                      },
+                      "fs": {
+                        "value": 2000,
+                        "unit": "mdps"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "start_time": "2000-01-01T00:00:36.379Z",
+      "end_time": "2000-01-01T00:00:45.283Z",
+      "class": "shaken", 
+      "source_blob": {
+        "id": "wm4e2fnqozqczib24eqrl3wamzrhjgyxx6qpyze2a7iykpwuhanq====",
+        "metadata": {
+          "uuid": "09a21eff-1a81-414f-8383-569d36d933f7",
+          "name": "20240212_11_34_06",
+          "device_description": {
+            "part_number": "STEVAL-MKBOXPRO",
+            "serial_number": "005100335752501520353339",
+            "alias": "STBOX_PRO_001",
+            "fw_name": "FP-SNS-DATALOG2_Datalog2",
+            "fw_version": "1.2.1"
+          }
+        }
+      },
+      "files": [
+        {
+          "id": "j3wquxci4yxufcwwv6kaxhkss2rbtymg5dzdkp76yoc7f3qu3vwa====",
+          "type": "text/csv",
+          "extension": "csv",
+          "start_time": "2000-01-01T00:00:36.379Z",
+          "end_time": "2000-01-01T00:00:45.283Z",
+          "metadata": {
+            "components": [
+              {
+                "name": "lsm6dsv16x",
+                "sensors": [
+                  {
+                    "name": "lsm6dsv16x_acc",
+                    "config": {
+                      "odr": {
+                        "value": 7680,
+                        "unit": "Hz"
+                      },
+                      "fs": {
+                        "value": 16,
+                        "unit": "g"
+                      }
+                    }
+                  },
+                  {
+                    "name": "lsm6dsv16x_gyro",
+                    "config": {
+                      "odr": {
+                        "value": 1920,
+                        "unit": "Hz"
+                      },
+                      "fs": {
+                        "value": 2000,
+                        "unit": "mdps"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "start_time": "2000-01-01T01:09:17.000Z",
+      "end_time": "2000-01-01T00:00:45.283Z",
+      "class": "stationary_upright", 
+      "source_blob": {
+        "id": "wm4e2fnqozqczib24eqrl3wamzrhjgyxx6qpyze2a7iykpwuhanq====",
+        "metadata": {
+          "uuid": "09a21eff-1a81-414f-8383-569d36d933f7",
+          "name": "20240212_11_34_06",
+          "device_description": {
+            "part_number": "STEVAL-MKBOXPRO",
+            "serial_number": "005100335752501520353339",
+            "alias": "STBOX_PRO_001",
+            "fw_name": "FP-SNS-DATALOG2_Datalog2",
+            "fw_version": "1.2.1"
+          }
+        }
+      },
+      "files": [
+        {
+          "id": "zjdmedamwqxogv5xeuh6bky75cvpqj77y72wdw63maqcpc2o5h4q====",
+          "type": "text/csv",
+          "extension": "csv",
+          "start_time": "2000-01-01T01:09:17.000Z",
+          "end_time": "2000-01-01T01:09:17.000Z",
+          "metadata": {
+            "components": [
+              {
+                "name": "lsm6dsv16x",
+                "sensors": [
+                  {
+                    "name": "lsm6dsv16x_acc",
+                    "config": {
+                      "odr": {
+                        "value": 480,
+                        "unit": "Hz"
+                      },
+                      "fs": {
+                        "value": 4,
+                        "unit": "g"
+                      }
+                    }
+                  },
+                  {
+                    "name": "lsm6dsv16x_gyro",
+                    "config": {
+                      "odr": {
+                        "value": 3840,
+                        "unit": "Hz"
+                      },
+                      "fs": {
+                        "value": 4000,
+                        "unit": "mdps"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "start_time": "2000-01-01T01:09:17.000Z",
+      "end_time": "2000-01-01T01:09:17.000Z",
+      "class": "shaken", 
+      "source_blob": {
+        "id": "wm4e2fnqozqczib24eqrl3wamzrhjgyxx6qpyze2a7iykpwuhanq====",
+        "metadata": {
+          "uuid": "09a21eff-1a81-414f-8383-569d36d933f7",
+          "name": "20240212_11_34_06",
+          "device_description": {
+            "part_number": "STEVAL-MKBOXPRO",
+            "serial_number": "005100335752501520353339",
+            "alias": "STBOX_PRO_001",
+            "fw_name": "FP-SNS-DATALOG2_Datalog2",
+            "fw_version": "1.2.1"
+          }
+        }
+      },
+      "files": [
+        {
+          "id": "5svgvtr3ktxbgxthkkq2fhst2mxiedcwbgpzhiluqfki5i6krwla====",
+          "type": "text/csv",
+          "extension": "csv",
+          "start_time": "2000-01-01T01:09:17.000Z",
+          "end_time": "2000-01-01T01:09:17.000Z",
+          "metadata": {
+            "components": [
+              {
+                "name": "lsm6dsv16x",
+                "sensors": [
+                  {
+                    "name": "lsm6dsv16x_acc",
+                    "config": {
+                      "odr": {
+                        "value": 480,
+                        "unit": "Hz"
+                      },
+                      "fs": {
+                        "value": 4,
+                        "unit": "g"
+                      }
+                    }
+                  },
+                  {
+                    "name": "lsm6dsv16x_gyro",
+                    "config": {
+                      "odr": {
+                        "value": 3840,
+                        "unit": "Hz"
+                      },
+                      "fs": {
+                        "value": 4000,
+                        "unit": "mdps"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "start_time": "2000-01-01T01:09:17.000Z",
+      "end_time": "2000-01-01T01:09:17.000Z",
+      "class": "stationary_not_upright", 
+      "source_blob": {
+        "id": "wm4e2fnqozqczib24eqrl3wamzrhjgyxx6qpyze2a7iykpwuhanq====",
+        "metadata": {
+          "uuid": "09a21eff-1a81-414f-8383-569d36d933f7",
+          "name": "20240212_11_34_06",
+          "device_description": {
+            "part_number": "STEVAL-MKBOXPRO",
+            "serial_number": "005100335752501520353339",
+            "alias": "STBOX_PRO_001",
+            "fw_name": "FP-SNS-DATALOG2_Datalog2",
+            "fw_version": "1.2.1"
+          }
+        }
+      },
+      "files": [
+        {
+          "id": "jcof2d7qxtoecprnolbw5ptfm5fiq466xnjvbyxahht6f52knkwq====",
+          "type": "text/csv",
+          "extension": "csv",
+          "start_time": "2000-01-01T01:09:17.000Z",
+          "end_time": "2000-01-01T01:09:17.000Z",
+          "metadata": {
+            "components": [
+              {
+                "name": "lsm6dsv16x",
+                "sensors": [
+                  {
+                    "name": "lsm6dsv16x_acc",
+                    "config": {
+                      "odr": {
+                        "value": 480,
+                        "unit": "Hz"
+                      },
+                      "fs": {
+                        "value": 4,
+                        "unit": "g"
+                      }
+                    }
+                  },
+                  {
+                    "name": "lsm6dsv16x_gyro",
+                    "config": {
+                      "odr": {
+                        "value": 3840,
+                        "unit": "Hz"
+                      },
+                      "fs": {
+                        "value": 4000,
+                        "unit": "mdps"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "start_time": "2000-01-01T01:09:17.000Z",
+      "end_time": "2000-01-01T01:09:17.000Z",
+      "class": "motion", 
+      "source_blob": {
+        "id": "wm4e2fnqozqczib24eqrl3wamzrhjgyxx6qpyze2a7iykpwuhanq====",
+        "metadata": {
+          "uuid": "09a21eff-1a81-414f-8383-569d36d933f7",
+          "name": "20240212_11_34_06",
+          "device_description": {
+            "part_number": "STEVAL-MKBOXPRO",
+            "serial_number": "005100335752501520353339",
+            "alias": "STBOX_PRO_001",
+            "fw_name": "FP-SNS-DATALOG2_Datalog2",
+            "fw_version": "1.2.1"
+          }
+        }
+      },
+      "files": [
+        {
+          "id": "yoe4rzuxh3fkxwuheh63rjj57kgnx2meuz7wuup5owatkn3xhnka====",
+          "type": "text/csv",
+          "extension": "csv",
+          "start_time": "2000-01-01T01:09:17.000Z",
+          "end_time": "2000-01-01T01:09:17.000Z",
+          "metadata": {
+            "components": [
+              {
+                "name": "lsm6dsv16x",
+                "sensors": [
+                  {
+                    "name": "lsm6dsv16x_acc",
+                    "config": {
+                      "odr": {
+                        "value": 480,
+                        "unit": "Hz"
+                      },
+                      "fs": {
+                        "value": 4,
+                        "unit": "g"
+                      }
+                    }
+                  },
+                  {
+                    "name": "lsm6dsv16x_gyro",
+                    "config": {
+                      "odr": {
+                        "value": 3840,
+                        "unit": "Hz"
+                      },
+                      "fs": {
+                        "value": 4000,
+                        "unit": "mdps"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "metadata": {}
+}
