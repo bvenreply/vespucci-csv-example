@@ -47,7 +47,6 @@
     "$defs": {
         "DataItem": {
             "type": "object",
-            "additionalProperties": false,
             "description": "Item in the `data` array. Logically equivalent to a `chunk` in the data-api model and roughly equivalent to an *acquisition* (rather, a portion of it that ) in the context of HSDatalog raw logs",
             "required": [],
             "properties": {
@@ -98,7 +97,6 @@
         "DataFile": {
             "type": "object",
             "description": "Description of a file containing the data for each entry in the `data` array",
-            "additionalProperties": false,
             "required": [
                 "id",
                 "type",
@@ -127,7 +125,6 @@
         "Component": {
             "type": "object",
             "description": "Description of a component used in the acquisition for the data item",
-            "additionalProperties": false,
             "required": [
                 "sensors"
             ],
