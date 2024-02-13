@@ -18,8 +18,8 @@
             "description": "Dataset description"
         },
         "id": {
-           "type": "string",
-           "description": "Unique ID for the dataset" 
+            "type": "string",
+            "description": "Unique ID for the dataset"
         },
         "classes": {
             "type": "array",
@@ -27,7 +27,9 @@
             "items": {
                 "type": "string"
             },
-            "uniqueItems": true
+            "uniqueItems": true,
+            "minItems": 1,
+            "maxItems": 16
         },
         "metadata": {
             "type": "object",
@@ -37,13 +39,17 @@
         "data": {
             "type": "array",
             "description": "Array of data items. A sequence of chunks/acquisitions",
-            "items": { "$ref": "#/$defs/DataItem" }
+            "items": {
+                "$ref": "#/$defs/DataItem"
+            }
         }
     },
     "$defs": {
         "DataItem": {
             "type": "object",
+            "additionalProperties": false,
             "description": "Item in the `data` array. Logically equivalent to a `chunk` in the data-api model and roughly equivalent to an *acquisition* (rather, a portion of it that ) in the context of HSDatalog raw logs",
+            "required": [],
             "properties": {
                 "start_time": {
                     "type": "string",
@@ -57,10 +63,123 @@
                 },
                 "class": {
                     "type": "string",
-                    "description": "Ground truth label for "
+                    "description": "Ground truth label for the data item"
+                },
+                "source_blob": {
+                    "type": "object",
+                    "description": "Optional metadata of the blob that was processed to produce this data item, if any",
+                    "required": [
+                        "id",
+                        "metadata"
+                    ],
+                    "properties": {
+                        "id": {
+                            "type": "string",
+                            "description": "Blob id. A base32 encoded sha256 digest of the blob data"
+                        },
+                        "metadata": {
+                            "type": "object",
+                            "description": "Additional opaque unstructured data that may be attached to the source blob reference"
+                        }
+                    }
+                },
+                "components": {
+                    "type": "array",
+                    "description": "Array of component metadata",
+                    "items": {
+                        "$ref": "#/$defs/Component"
+                    }
+                },
+                "file": {
+                    "$ref": "#/$defs/DataFile"
+                }
+            }
+        },
+        "DataFile": {
+            "type": "object",
+            "description": "Description of a file containing the data for each entry in the `data` array",
+            "additionalProperties": false,
+            "required": [
+                "id",
+                "type",
+                "extension",
+                "relative_path"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "File id. A base32 encoded sha256 digest of the file data"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "MIME type of the referenced file"
+                },
+                "extension": {
+                    "type": "string",
+                    "description": "Extension of the file inside the dataset archive"
+                },
+                "relative_path": {
+                    "type": "string",
+                    "description": "Path of the file within the dataset folder"
+                }
+            }
+        },
+        "Component": {
+            "type": "object",
+            "description": "Description of a component used in the acquisition for the data item",
+            "additionalProperties": false,
+            "required": [
+                "sensors"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Component name. Optional field"
+                },
+                "sensors": {
+                    "type": "array",
+                    "description": "Array of sensor-specific metadata",
+                    "items": {
+                        "$ref": "#/$defs/Sensor"
+                    }
+                },
+                "metadata": {
+                    "type": "object",
+                    "description": "Component-level unstructured metadata",
+                    "additionalProperties": true
+                }
+            }
+        },
+        "Sensor": {
+            "type": "object",
+            "description": "Sensor-specific metadata",
+            "required": [
+                "type",
+                "config"
+            ],
+            "properties": {
+                "config": {
+                    "type": "object",
+                    "description": "Sensor-specific configuration",
+                    "additionalProperties": {
+                        "type": "object",
+                        "description": "Config value",
+                        "required": [
+                            "value"
+                        ],
+                        "properties": {
+                            "value": {
+                                "type": "number",
+                                "description": "Property value"
+                            },
+                            "unit": {
+                                "type": "string",
+                                "description": "Measurement unit for the config value"
+                            }
+                        }
+                    }
                 }
             }
         }
     }
-
 }
