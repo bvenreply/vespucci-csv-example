@@ -126,7 +126,7 @@
         "id": "ygp7fqe6jmsybmszwjppsqbmejmkt7pz5ksv5u3rfy7qewuehama====",
         "type": "text/csv",
         "extension": "csv",
-        "relative_path": "motion/lsm6dsv16x_ygp7fqe6.csv"
+        "relative_path": "stationary_upright/lsm6dsv16x_ygp7fqe6.csv"
 
       }
     },
@@ -185,7 +185,7 @@
       ],
       "file": {
         "id": "klujd6fsvnoggakduuljaznzuzhwuhhk5o5tecneqyta6i2x5p6q====",
-        "relative_path": "motion/lsm6dsv16x_klujd6fs.csv",
+        "relative_path": "stationary_not_upright/lsm6dsv16x_klujd6fs.csv",
         "type": "text/csv",
         "extension": "csv"
 
@@ -246,7 +246,7 @@
       ],
       "file": {
         "id": "j3wquxci4yxufcwwv6kaxhkss2rbtymg5dzdkp76yoc7f3qu3vwa====",
-        "relative_path": "motion/lsm6dsv16x_j3wquxci.csv",
+        "relative_path": "shaken/lsm6dsv16x_j3wquxci.csv",
         "type": "text/csv",
         "extension": "csv"
 
@@ -259,7 +259,7 @@
       "source_blob": {
         "id": "wm4e2fnqozqczib24eqrl3wamzrhjgyxx6qpyze2a7iykpwuhanq====",
         "metadata": {
-          "uuid": "09a21eff-1a81-414f-8383-569d36d933f7",
+          "uuid": "27675a99-3ffe-4cbc-9017-9c333f240a5a",
           "name": "20240212_11_34_06",
           "device_description": {
             "part_number": "STEVAL-MKBOXPRO",
@@ -307,7 +307,7 @@
       ],
       "file": {
         "id": "zjdmedamwqxogv5xeuh6bky75cvpqj77y72wdw63maqcpc2o5h4q====",
-        "relative_path": "motion/lsm6dsv16x_zjdmedam.csv",
+        "relative_path": "stationary_upright/lsm6dsv16x_zjdmedam.csv",
         "type": "text/csv",
         "extension": "csv"
       }
@@ -319,7 +319,7 @@
       "source_blob": {
         "id": "wm4e2fnqozqczib24eqrl3wamzrhjgyxx6qpyze2a7iykpwuhanq====",
         "metadata": {
-          "uuid": "09a21eff-1a81-414f-8383-569d36d933f7",
+          "uuid": "27675a99-3ffe-4cbc-9017-9c333f240a5a",
           "name": "20240212_11_34_06",
           "device_description": {
             "part_number": "STEVAL-MKBOXPRO",
@@ -367,7 +367,7 @@
       ],
       "file": {
           "id": "5svgvtr3ktxbgxthkkq2fhst2mxiedcwbgpzhiluqfki5i6krwla====",
-          "relative_path": "motion/lsm6dsv16x_5svgvtr3.csv",
+          "relative_path": "shaken/lsm6dsv16x_5svgvtr3.csv",
           "type": "text/csv",
           "extension": "csv"
         }
@@ -379,7 +379,7 @@
       "source_blob": {
         "id": "wm4e2fnqozqczib24eqrl3wamzrhjgyxx6qpyze2a7iykpwuhanq====",
         "metadata": {
-          "uuid": "09a21eff-1a81-414f-8383-569d36d933f7",
+          "uuid": "27675a99-3ffe-4cbc-9017-9c333f240a5a",
           "name": "20240212_11_34_06",
           "device_description": {
             "part_number": "STEVAL-MKBOXPRO",
@@ -427,7 +427,7 @@
       ],
       "file": {
         "id": "jcof2d7qxtoecprnolbw5ptfm5fiq466xnjvbyxahht6f52knkwq====",
-        "relative_path": "motion/lsm6dsv16x_jcof2d7q.csv",
+        "relative_path": "stationary_not_upright/lsm6dsv16x_jcof2d7q.csv",
         "type": "text/csv",
         "extension": "csv"
       }
@@ -439,7 +439,7 @@
       "source_blob": {
         "id": "wm4e2fnqozqczib24eqrl3wamzrhjgyxx6qpyze2a7iykpwuhanq====",
         "metadata": {
-          "uuid": "09a21eff-1a81-414f-8383-569d36d933f7",
+          "uuid": "27675a99-3ffe-4cbc-9017-9c333f240a5a",
           "name": "20240212_11_34_06",
           "device_description": {
             "part_number": "STEVAL-MKBOXPRO",
