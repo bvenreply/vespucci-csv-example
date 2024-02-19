@@ -64,15 +64,14 @@
                     "type": "string",
                     "description": "Ground truth label for the data item"
                 },
-                "source_blob": {
+                "source": {
                     "type": "object",
                     "description": "Optional metadata of the blob that was processed to produce this data item, if any",
                     "required": [
-                        "id",
                         "metadata"
                     ],
                     "properties": {
-                        "id": {
+                        "blob_id": {
                             "type": "string",
                             "description": "Blob id. A base32 encoded sha256 digest of the blob data"
                         },
