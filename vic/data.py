@@ -1,6 +1,5 @@
-from collections.abc import Iterable, Sequence
+from collections.abc import Iterable
 from dataclasses import dataclass
-from typing import Any, Mapping
 import pandas as pd
 
 from deviceconfig import Component
@@ -17,11 +16,12 @@ class ComponentData:
         self.component = component
         self.data = data
 
-
     @staticmethod
     def collate(component_data: Iterable["ComponentData"]) -> pd.DataFrame:
 
-        component_data = tuple(cd.data.drop("Time", axis=1) for cd in component_data)
+        component_data = tuple(
+            cd.data.drop("Time", axis=1) for cd in component_data
+        )
         # print(component_data)
         conc: pd.DataFrame = pd.concat(component_data, axis=1, sort=False)
         print(conc)

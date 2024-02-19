@@ -7,25 +7,36 @@ import tempfile as tmp
 import logging
 import subprocess as sp
 from pathlib import Path
-from os import path, listdir
+from os import listdir
 from base64 import b32encode
 import shutil
 import sys
 from hashlib import sha256
 import ulid
 
-from st_hsdatalog.HSD.HSDatalog import HSDatalog as HSDatalogFactory, HSDatalog_v2
+from st_hsdatalog.HSD.HSDatalog import (
+    HSDatalog as HSDatalogFactory,
+    HSDatalog_v2,
+)
 
 from vic.acquisitioninfo import AcquisitionInfo, TagEvent
 from vic.deviceconfig import Device
-from vic.models import Source, SensorConfigEntry, Sensor, Component, DataFile, DataItem, VespucciInertialCsvDataset
+from vic.models import (
+    Source,
+    SensorConfigEntry,
+    Sensor,
+    Component,
+    DataItem,
+    VespucciInertialCsvDataset,
+)
 
 PACKAGE_NAME = "vic"
 
-DIGEST_READ_BUFFER_LENGTH = 512 * 2 ** 4
+DIGEST_READ_BUFFER_LENGTH = 512 * 2**4
 FILENAME_DIGEST_TRUNCATION_LENGTH = 8
 
 log: logging.Logger = None
+
 
 @dataclass
 class TagRange:
@@ -63,17 +74,17 @@ class TagRange:
 
                 assert set_event.label == event.label
                 start_time = set_event.timestamp
-                end_time=event.timestamp
+                end_time = event.timestamp
 
                 assert start_time <= end_time
                 ret.append(
                     TagRange(
                         label=event.label,
                         start_time=start_time,
-                        end_time=end_time
+                        end_time=end_time,
                     )
                 )
-                
+
         if len(state) != 0:
             raise Exception(
                 f"Malformed event sequence, label {event.label} "
@@ -81,6 +92,7 @@ class TagRange:
             )
 
         return ret
+
 
 @click.command()
 @click.argument("input-dir")
@@ -98,18 +110,26 @@ def run(input_dir: str, output_dir: str, log_level: str):
         raise Exception(f"Input dir does not exist: {input_path}")
 
     if not input_path.is_dir():
-        raise Exception(f"Input dir exists but is not a directory: {input_path}")
+        raise Exception(
+            f"Input dir exists but is not a directory: {input_path}"
+        )
 
     output_path = Path(output_dir).absolute()
 
     if not output_path.exists():
         if not output_path.parent.exists():
-            raise Exception("Output dir does not exist and neither does the parent")
-        
-        log.debug("Output folder %s does not exist, it will created", output_path)
+            raise Exception(
+                "Output dir does not exist and neither does the parent"
+            )
+
+        log.debug(
+            "Output folder %s does not exist, it will created", output_path
+        )
     else:
         if not output_path.is_dir():
-            raise Exception(f"Output dir exists but is not a directory: {input_path}")
+            raise Exception(
+                f"Output dir exists but is not a directory: {input_path}"
+            )
 
         log.debug("Output folder %s exists, no need to create it")
 
@@ -131,9 +151,11 @@ def run(input_dir: str, output_dir: str, log_level: str):
 
     log.debug("All done")
 
+
 # TODO: make more robust
 def get_sensor_type(sensor_name: str) -> str:
-    return sensor_name[sensor_name.rfind("_") + 1:].title()
+    return sensor_name[sensor_name.rfind("_") + 1 :].title()
+
 
 def get_sensor_config_unit(sensor: Component, config_entry: str) -> str:
     if sensor.name.endswith("_acc"):
@@ -143,7 +165,10 @@ def get_sensor_config_unit(sensor: Component, config_entry: str) -> str:
     else:
         raise Exception("Cannot get sensor config unit")
 
-def do_conversion(input_path: Path, output_path: Path, temp_path_in: Path, temp_path_out: Path) -> None:
+
+def do_conversion(
+    input_path: Path, output_path: Path, temp_path_in: Path, temp_path_out: Path
+) -> None:
 
     log.debug("Copying input folder to temp path")
 
@@ -162,27 +187,26 @@ def do_conversion(input_path: Path, output_path: Path, temp_path_in: Path, temp_
             "CSV",
             "-o",
             str(temp_path_out),
-            str(temp_path_in)
+            str(temp_path_in),
         ),
         stdout=sys.stdout,
         stderr=sys.stderr,
-        check=True
+        check=True,
     )
 
     log.info("Conversion from `.dat` succeeded")
 
     log.debug("Assembling dataset metadata")
 
-    hsd: HSDatalog_v2 = HSDatalogFactory().create_hsd(acquisition_folder=str(temp_path_in))
+    hsd: HSDatalog_v2 = HSDatalogFactory().create_hsd(
+        acquisition_folder=str(temp_path_in)
+    )
 
     acq_info = hsd.get_acquisition_info()
 
     acq_info_validated = AcquisitionInfo.model_validate(acq_info)
 
-    source = Source.model_validate({
-        "blob_id": "none",
-        "metadata": acq_info
-    })
+    source = Source.model_validate({"blob_id": "none", "metadata": acq_info})
 
     log.debug("Datalog source info: %s", source)
 
@@ -194,32 +218,30 @@ def do_conversion(input_path: Path, output_path: Path, temp_path_in: Path, temp_
     components = device.get_components()
 
     # Temporary hack until nomenclature is fixed
-    component_name = next(sensor.name.partition("_")[0] for sensor in components)
-    
+    component_name = next(
+        sensor.name.partition("_")[0] for sensor in components
+    )
+
     log.debug("Processing component data for %s", component_name)
 
-    component = {
-        "name": component_name,
-        "sensors": sensors
-    }
+    component = {"name": component_name, "sensors": sensors}
 
     for sensor in components:
         sensor_type = get_sensor_type(sensor.name)
 
-        odr_config = SensorConfigEntry.model_validate({
-            "value": sensor.odr,
-            "unit": "Hz"
-        })
+        odr_config = SensorConfigEntry.model_validate(
+            {"value": sensor.odr, "unit": "Hz"}
+        )
 
-        fs_config = SensorConfigEntry.model_validate({
-            "value": sensor.fs,
-            "unit": get_sensor_config_unit(sensor, "fs")
-        })
+        fs_config = SensorConfigEntry.model_validate(
+            {"value": sensor.fs, "unit": get_sensor_config_unit(sensor, "fs")}
+        )
 
-        s = Sensor(type=sensor_type, name=sensor.name, config={
-            "odr": odr_config,
-            "fs": fs_config
-        })
+        s = Sensor(
+            type=sensor_type,
+            name=sensor.name,
+            config={"odr": odr_config, "fs": fs_config},
+        )
 
         log.debug("Adding config for sensor %s:\n%s", s.name, s)
 
@@ -247,16 +269,16 @@ def do_conversion(input_path: Path, output_path: Path, temp_path_in: Path, temp_
     log.debug("Computed tag ranges: %s", tag_ranges)
 
     for subfolder in subfolders:
-        
+
         one_tag_ranges = tuple(
-            tag_range for tag_range in tag_ranges if tag_range.label == subfolder.name
+            tag_range
+            for tag_range in tag_ranges
+            if tag_range.label == subfolder.name
         )
 
         log.debug("Processing subfolder %s", subfolder)
 
-        files = tuple(
-            subfolder.joinpath(item) for item in listdir(subfolder)
-        )
+        files = tuple(subfolder.joinpath(item) for item in listdir(subfolder))
 
         assert all(file.name.endswith(".csv") for file in files)
         assert len(files) == len(one_tag_ranges)
@@ -266,7 +288,9 @@ def do_conversion(input_path: Path, output_path: Path, temp_path_in: Path, temp_
             digest = sha256()
 
             with open(file, "rb") as file_handle:
-                while (read_bytes := file_handle.read(DIGEST_READ_BUFFER_LENGTH)) != b"":
+                while (
+                    read_bytes := file_handle.read(DIGEST_READ_BUFFER_LENGTH)
+                ) != b"":
                     digest.update(read_bytes)
 
             file_id = b32encode(digest.digest()).decode("utf-8").lower()
@@ -278,14 +302,14 @@ def do_conversion(input_path: Path, output_path: Path, temp_path_in: Path, temp_
             ext = "csv"
 
             file_name = f"{component_name}_{file_id[:8]}.{ext}"
-            
+
             file.rename(file.with_name(file_name))
 
             file_item = {
                 "id": file_id,
                 "relative_path": f"{subfolder.name}/{file_name}",
                 "type": "text/csv",
-                "extension": ext
+                "extension": ext,
             }
 
             data_item = {
@@ -293,7 +317,7 @@ def do_conversion(input_path: Path, output_path: Path, temp_path_in: Path, temp_
                 "start_time": tag_range.start_time,
                 "end_time": tag_range.end_time,
                 "file": file_item,
-                "source": source
+                "source": source,
             }
 
             data_item = DataItem.model_validate(data_item)
@@ -306,13 +330,14 @@ def do_conversion(input_path: Path, output_path: Path, temp_path_in: Path, temp_
         id=str(ulid.ULID()).lower(),
         classes=list(tags),
         data=data_items,
-        metadata={}
+        metadata={},
     )
 
     with open(output_path.joinpath("dataset-meta.json"), "wt") as file_handle:
         file_handle.write(dataset.model_dump_json(indent=2))
 
     _ = shutil.copytree(temp_path_out, output_path, dirs_exist_ok=True)
+
 
 if __name__ == "__main__":
     run()

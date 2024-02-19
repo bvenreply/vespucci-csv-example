@@ -3,10 +3,12 @@ from typing import Sequence
 from pydantic import BaseModel, ConfigDict, Field
 import datetime
 
+
 class TagEvent(BaseModel):
     label: str = Field(alias="l")
     is_set: bool = Field(alias="e")
     timestamp: datetime.datetime = Field(alias="ta")
+
 
 class AcquisitionInfo(BaseModel):
 
@@ -22,6 +24,4 @@ class AcquisitionInfo(BaseModel):
     tag_events: Sequence[TagEvent] = Field(alias="tags")
 
     def tag_set(self) -> Set[str]:
-        return set(
-            event.label for event in self.tag_events if event.is_set
-        )
+        return set(event.label for event in self.tag_events if event.is_set)
