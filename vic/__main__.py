@@ -333,11 +333,10 @@ def do_conversion(
         metadata={},
     )
 
-    with open(output_path.joinpath("dataset-meta.json"), "wt") as file_handle:
-        file_handle.write(dataset.model_dump_json(indent=2))
-
     _ = shutil.copytree(temp_path_out, output_path, dirs_exist_ok=True)
 
+    with open(output_path.joinpath("dataset-meta.json"), "wt") as file_handle:
+        file_handle.write(dataset.model_dump_json(indent=2))
 
 if __name__ == "__main__":
     run()
