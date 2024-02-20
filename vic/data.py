@@ -2,16 +2,16 @@ from collections.abc import Iterable
 from dataclasses import dataclass
 import pandas as pd
 
-from deviceconfig import Component
+from deviceconfig import DeviceConfigComponent
 
 
 @dataclass
 class ComponentData:
     name: str
-    component: Component
+    component: DeviceConfigComponent
     data: pd.DataFrame
 
-    def __init__(self, name: str, component: Component, data: pd.DataFrame):
+    def __init__(self, name: str, component: DeviceConfigComponent, data: pd.DataFrame):
         self.name = name
         self.component = component
         self.data = data

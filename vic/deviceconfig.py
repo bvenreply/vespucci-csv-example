@@ -1,9 +1,9 @@
-from collections.abc import Mapping, Sequence
+from collections.abc import Mapping, MutableMapping, Sequence
 from typing import Optional, Any
 from pydantic import BaseModel, ConfigDict, Field
 
 
-class Component(BaseModel):
+class DeviceConfigComponent(BaseModel):
     model_config = ConfigDict(extra="allow")
 
     name: str
@@ -25,11 +25,8 @@ class Component(BaseModel):
     ep_id: int
 
 
-ComponentNameWrapper = Mapping[str, Component]
-
-
 def name_mapping(
-    key: str, mapping_value: Mapping[str, Any]
+    key: str, mapping_value: MutableMapping[str, Any]
 ) -> Mapping[str, Any]:
     mapping_value["name"] = key
 
@@ -37,12 +34,12 @@ def name_mapping(
 
 
 def to_named_sequence(
-    mapping: Mapping[str, Mapping[str, Any]]
+    mapping: Mapping[str, MutableMapping[str, Any]]
 ) -> Sequence[Mapping[str, Any]]:
     return tuple(name_mapping(key, value) for key, value in mapping.items())
 
 
-class Device(BaseModel):
+class DeviceConfig(BaseModel):
     model_config = ConfigDict(extra="allow")
     board_id: int
     fw_id: int
@@ -51,10 +48,10 @@ class Device(BaseModel):
 
     def get_components(
         self, filter_disabled: bool = True
-    ) -> Sequence[Component]:
+    ) -> Sequence[DeviceConfigComponent]:
 
         return tuple(
-            Component.model_validate(item)
+            DeviceConfigComponent.model_validate(item)
             for mapping in self.component_data
             for item in to_named_sequence(mapping)
             if "odr" in item and ((not filter_disabled) or item["enable"])

@@ -1,7 +1,7 @@
-from collections.abc import Mapping
+from collections.abc import Mapping, MutableMapping, MutableSequence
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Sequence
+from typing import Any, Sequence, cast, no_type_check
 import click
 import tempfile as tmp
 import logging
@@ -20,11 +20,11 @@ from st_hsdatalog.HSD.HSDatalog import (
 )
 
 from vic.acquisitioninfo import AcquisitionInfo, TagEvent
-from vic.deviceconfig import Device
+from vic.deviceconfig import DeviceConfig
 from vic.models import (
+    Device,
     Source,
     SensorConfigEntry,
-    Sensor,
     Component,
     DataItem,
     VespucciInertialCsvDataset,
@@ -35,7 +35,7 @@ PACKAGE_NAME = "vic"
 DIGEST_READ_BUFFER_LENGTH = 512 * 2**4
 FILENAME_DIGEST_TRUNCATION_LENGTH = 8
 
-log: logging.Logger = None
+log: logging.Logger = cast(logging.Logger, None)
 
 
 @dataclass
@@ -54,7 +54,7 @@ class TagRange:
             )
 
         ret: list[TagRange] = []
-        state: Mapping[str, TagEvent] = {}
+        state: MutableMapping[str, TagEvent] = {}
 
         for event in events:
             if event.is_set:
@@ -98,7 +98,7 @@ class TagRange:
 @click.argument("input-dir")
 @click.option("--output-dir")
 @click.option("--log-level", default="INFO")
-def run(input_dir: str, output_dir: str, log_level: str):
+def run(input_dir: str, output_dir: str, log_level: str) -> None:
 
     logging.basicConfig(level=log_level.upper())
     global log
@@ -151,16 +151,11 @@ def run(input_dir: str, output_dir: str, log_level: str):
 
     log.debug("All done")
 
-
-# TODO: make more robust
-def get_sensor_type(sensor_name: str) -> str:
-    return sensor_name[sensor_name.rfind("_") + 1 :].title()
-
-
-def get_sensor_config_unit(sensor: Component, config_entry: str) -> str:
-    if sensor.name.endswith("_acc"):
+@no_type_check
+def get_sensor_config_unit(component: Component, config_entry: str) -> str:
+    if component.name.endswith("_acc"):
         return "g"
-    elif sensor.name.endswith("_gyro"):
+    elif component.name.endswith("_gyro"):
         return "mdps"
     else:
         raise Exception("Cannot get sensor config unit")
@@ -210,46 +205,41 @@ def do_conversion(
 
     log.debug("Datalog source info: %s", source)
 
-    device = Device.model_validate(hsd.get_device())
+    device_config_valid = DeviceConfig.model_validate(hsd.get_device())
 
-    sensors = []
+    components_valid: MutableSequence[Component] = []
 
-    # FKING SHIT NOMENCLATURE
-    components = device.get_components()
+    device_config_components = device_config_valid.get_components()
 
-    # Temporary hack until nomenclature is fixed
-    component_name = next(
-        sensor.name.partition("_")[0] for sensor in components
-    )
+    device: MutableMapping[str, Any] = {
+        "components": components_valid,
+        "board_id": device_config_valid.board_id,
+        "fw_id": device_config_valid.fw_id,
+        "metadata": {}
+    }
 
-    log.debug("Processing component data for %s", component_name)
-
-    component = {"name": component_name, "sensors": sensors}
-
-    for sensor in components:
-        sensor_type = get_sensor_type(sensor.name)
+    for device_config_component in device_config_components:
 
         odr_config = SensorConfigEntry.model_validate(
-            {"value": sensor.odr, "unit": "Hz"}
+            {"value": device_config_component.odr, "unit": "Hz"}
         )
 
         fs_config = SensorConfigEntry.model_validate(
-            {"value": sensor.fs, "unit": get_sensor_config_unit(sensor, "fs")}
+            {"value": device_config_component.fs, "unit": get_sensor_config_unit(device_config_component, "fs")}
         )
 
-        s = Sensor(
-            type=sensor_type,
-            name=sensor.name,
-            config={"odr": odr_config, "fs": fs_config},
+        component_valid = Component(
+            name=device_config_component.name,
+            config={"odr": odr_config, "fs": fs_config}
         )
 
-        log.debug("Adding config for sensor %s:\n%s", s.name, s)
+        log.debug("Adding config for sensor %s:\n%s", component_valid.name, component_valid)
 
-        sensors.append(s)
+        components_valid.append(component_valid)
 
-    c = Component.model_validate(component)
+    device_valid = Device.model_validate(device)
 
-    log.debug("Component metadata:\n%s", c)
+    log.debug("Component metadata:\n%s", device_config_valid)
 
     tags = set(item["Label"] for item in hsd.get_time_tags())
 
@@ -301,7 +291,7 @@ def do_conversion(
 
             ext = "csv"
 
-            file_name = f"{component_name}_{file_id[:8]}.{ext}"
+            file_name = f"{file_id[:8]}.{ext}"
 
             file.rename(file.with_name(file_name))
 
@@ -318,11 +308,11 @@ def do_conversion(
                 "end_time": tag_range.end_time,
                 "file": file_item,
                 "source": source,
+                "device": device_valid
             }
 
-            data_item = DataItem.model_validate(data_item)
-
-            data_items.append(data_item)
+            data_item_valid = DataItem.model_validate(data_item)
+            data_items.append(data_item_valid)
 
     dataset = VespucciInertialCsvDataset(
         name="my converted dataset",
