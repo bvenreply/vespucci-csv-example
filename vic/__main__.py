@@ -147,7 +147,13 @@ def run(input_dir: str, output_dir: str, log_level: str) -> None:
         assert temp_path_out.exists() and temp_path_out.is_dir()
         log.debug("Created temp output dir: %s", temp_path_out)
 
-        do_conversion(input_path, output_path, temp_path_in, temp_path_out)
+        log.debug("Copying input folder to temp path")
+
+        _ = shutil.copytree(input_path, temp_path_in, dirs_exist_ok=True)
+
+        do_conversion(temp_path_in, temp_path_out)
+
+        _ = shutil.copytree(temp_path_out, output_path, dirs_exist_ok=True)
 
     log.debug("All done")
 
@@ -162,13 +168,7 @@ def get_sensor_config_unit(component: Component, config_entry: str) -> str:
         raise Exception("Cannot get sensor config unit")
 
 
-def do_conversion(
-    input_path: Path, output_path: Path, temp_path_in: Path, temp_path_out: Path
-) -> None:
-
-    log.debug("Copying input folder to temp path")
-
-    _ = shutil.copytree(input_path, temp_path_in, dirs_exist_ok=True)
+def do_conversion(temp_path_in: Path, temp_path_out: Path) -> None:
 
     log.info("Starting conversion program...")
 
@@ -331,9 +331,7 @@ def do_conversion(
         metadata={},
     )
 
-    _ = shutil.copytree(temp_path_out, output_path, dirs_exist_ok=True)
-
-    with open(output_path.joinpath("dataset-meta.json"), "wt") as file_handle:
+    with open(temp_path_out.joinpath("dataset-meta.json"), "wt") as file_handle:
         file_handle.write(dataset.model_dump_json(indent=2))
 
 
