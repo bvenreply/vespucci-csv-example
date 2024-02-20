@@ -2,9 +2,9 @@
 from pathlib import Path
 import re
 import logging
-from typing import Any, Optional
+from typing import Any
 import typer
-from concurrent.futures import Future, ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import os
 from hashlib import sha256, file_digest
 from base64 import b32encode
