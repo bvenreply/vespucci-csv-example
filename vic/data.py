@@ -11,7 +11,9 @@ class ComponentData:
     component: DeviceConfigComponent
     data: pd.DataFrame
 
-    def __init__(self, name: str, component: DeviceConfigComponent, data: pd.DataFrame):
+    def __init__(
+        self, name: str, component: DeviceConfigComponent, data: pd.DataFrame
+    ):
         self.name = name
         self.component = component
         self.data = data

@@ -1,4 +1,4 @@
-from collections.abc import Mapping, MutableMapping, MutableSequence
+from collections.abc import MutableMapping, MutableSequence
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Any, Sequence, cast, no_type_check
@@ -151,6 +151,7 @@ def run(input_dir: str, output_dir: str, log_level: str) -> None:
 
     log.debug("All done")
 
+
 @no_type_check
 def get_sensor_config_unit(component: Component, config_entry: str) -> str:
     if component.name.endswith("_acc"):
@@ -215,7 +216,7 @@ def do_conversion(
         "components": components_valid,
         "board_id": device_config_valid.board_id,
         "fw_id": device_config_valid.fw_id,
-        "metadata": {}
+        "metadata": {},
     }
 
     for device_config_component in device_config_components:
@@ -225,15 +226,22 @@ def do_conversion(
         )
 
         fs_config = SensorConfigEntry.model_validate(
-            {"value": device_config_component.fs, "unit": get_sensor_config_unit(device_config_component, "fs")}
+            {
+                "value": device_config_component.fs,
+                "unit": get_sensor_config_unit(device_config_component, "fs"),
+            }
         )
 
         component_valid = Component(
             name=device_config_component.name,
-            config={"odr": odr_config, "fs": fs_config}
+            config={"odr": odr_config, "fs": fs_config},
         )
 
-        log.debug("Adding config for sensor %s:\n%s", component_valid.name, component_valid)
+        log.debug(
+            "Adding config for sensor %s:\n%s",
+            component_valid.name,
+            component_valid,
+        )
 
         components_valid.append(component_valid)
 
@@ -308,7 +316,7 @@ def do_conversion(
                 "end_time": tag_range.end_time,
                 "file": file_item,
                 "source": source,
-                "device": device_valid
+                "device": device_valid,
             }
 
             data_item_valid = DataItem.model_validate(data_item)
@@ -327,6 +335,7 @@ def do_conversion(
 
     with open(output_path.joinpath("dataset-meta.json"), "wt") as file_handle:
         file_handle.write(dataset.model_dump_json(indent=2))
+
 
 if __name__ == "__main__":
     run()
