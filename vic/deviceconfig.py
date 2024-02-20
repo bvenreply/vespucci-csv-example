@@ -24,6 +24,14 @@ class DeviceConfigComponent(BaseModel):
     stream_id: int
     ep_id: int
 
+    def get_sensor_config_unit(self, config_entry: str) -> str:
+        if self.name.endswith("_acc"):
+            return "g"
+        elif self.name.endswith("_gyro"):
+            return "mdps"
+        else:
+            raise Exception("Cannot get sensor config unit")
+
 
 def name_mapping(
     key: str, mapping_value: MutableMapping[str, Any]

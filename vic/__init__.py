@@ -1,9 +1,9 @@
 from base64 import b32encode
-from collections.abc import MutableMapping, MutableSequence
+from collections.abc import MutableMapping
 from hashlib import sha256
 from os import listdir
 import sys
-from typing import Any, cast, no_type_check
+from typing import Any
 
 
 import subprocess as sp
@@ -27,7 +27,6 @@ from vic.models import (
     Component,
     DataItem,
     Device,
-    SensorConfigEntry,
     Source,
     VespucciInertialCsvDataset,
 )
@@ -37,7 +36,7 @@ PACKAGE_NAME = "vic"
 DIGEST_READ_BUFFER_LENGTH = 512 * 2**4
 FILENAME_DIGEST_TRUNCATION_LENGTH = 8
 
-log: logging.Logger = cast(logging.Logger, None)
+log = logging.getLogger(PACKAGE_NAME)
 
 
 @click.command()
@@ -45,10 +44,7 @@ log: logging.Logger = cast(logging.Logger, None)
 @click.option("--output-dir")
 @click.option("--log-level", default="INFO")
 def run(input_dir: str, output_dir: str, log_level: str) -> None:
-
     logging.basicConfig(level=log_level.upper())
-    global log
-    log = logging.getLogger(PACKAGE_NAME)
 
     input_path = Path(input_dir).absolute()
 
@@ -106,16 +102,6 @@ def run(input_dir: str, output_dir: str, log_level: str) -> None:
     log.debug("All done")
 
 
-@no_type_check
-def get_sensor_config_unit(component: Component, config_entry: str) -> str:
-    if component.name.endswith("_acc"):
-        return "g"
-    elif component.name.endswith("_gyro"):
-        return "mdps"
-    else:
-        raise Exception("Cannot get sensor config unit")
-
-
 def assemble_metadata(temp_path_in: Path, temp_path_out: Path) -> None:
 
     log.debug("Assembling dataset metadata")
@@ -134,9 +120,12 @@ def assemble_metadata(temp_path_in: Path, temp_path_out: Path) -> None:
 
     device_config_valid = DeviceConfig.model_validate(hsd.get_device())
 
-    components_valid: MutableSequence[Component] = []
-
     device_config_components = device_config_valid.get_components()
+
+    components_valid = list(
+        Component.from_device_config_component(device_config_component)
+        for device_config_component in device_config_components
+    )
 
     device: MutableMapping[str, Any] = {
         "components": components_valid,
@@ -144,32 +133,6 @@ def assemble_metadata(temp_path_in: Path, temp_path_out: Path) -> None:
         "fw_id": device_config_valid.fw_id,
         "metadata": {},
     }
-
-    for device_config_component in device_config_components:
-
-        odr_config = SensorConfigEntry.model_validate(
-            {"value": device_config_component.odr, "unit": "Hz"}
-        )
-
-        fs_config = SensorConfigEntry.model_validate(
-            {
-                "value": device_config_component.fs,
-                "unit": get_sensor_config_unit(device_config_component, "fs"),
-            }
-        )
-
-        component_valid = Component(
-            name=device_config_component.name,
-            config={"odr": odr_config, "fs": fs_config},
-        )
-
-        log.debug(
-            "Adding config for sensor %s:\n%s",
-            component_valid.name,
-            component_valid,
-        )
-
-        components_valid.append(component_valid)
 
     device_valid = Device.model_validate(device)
 

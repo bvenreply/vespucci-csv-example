@@ -2,6 +2,11 @@ from collections.abc import Mapping, Sequence
 from typing import Any, Optional
 from pydantic import BaseModel, Field
 from datetime import datetime
+import logging
+
+from vic.deviceconfig import DeviceConfigComponent
+
+log = logging.getLogger(__name__)
 
 
 class Source(BaseModel):
@@ -17,6 +22,28 @@ class SensorConfigEntry(BaseModel):
 class Component(BaseModel):
     name: Optional[str]
     config: Mapping[str, SensorConfigEntry]
+
+    @staticmethod
+    def from_device_config_component(
+        device_config_component: DeviceConfigComponent,
+    ) -> "Component":
+        odr_config = SensorConfigEntry.model_validate(
+            {"value": device_config_component.odr, "unit": "Hz"}
+        )
+
+        fs_config = SensorConfigEntry.model_validate(
+            {
+                "value": device_config_component.fs,
+                "unit": device_config_component.get_sensor_config_unit("fs"),
+            }
+        )
+
+        component_valid = Component(
+            name=device_config_component.name,
+            config={"odr": odr_config, "fs": fs_config},
+        )
+
+        return component_valid
 
 
 class Device(BaseModel):
