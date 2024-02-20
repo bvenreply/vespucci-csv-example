@@ -133,21 +133,21 @@ def run(input_dir: str, output_dir: str, log_level: str) -> None:
 
         log.debug("Output folder %s exists, no need to create it")
 
-    with tmp.TemporaryDirectory() as temp_dir:
-        temp_path_in = Path(temp_dir).absolute()
-
-        log.debug("Created temp input dir: %s", temp_path_in)
+    with (
+        tmp.TemporaryDirectory() as temp_dir_in,
+        tmp.TemporaryDirectory() as temp_dir_out,
+    ):
+        temp_path_in = Path(temp_dir_in).absolute()
 
         assert temp_path_in.exists() and temp_path_in.is_dir()
+        log.debug("Created temp input dir: %s", temp_path_in)
 
-        with tmp.TemporaryDirectory() as temp_dir_out:
-            temp_path_out = Path(temp_dir_out).absolute()
+        temp_path_out = Path(temp_dir_out).absolute()
 
-            log.debug("Created temp output dir: %s", temp_path_out)
+        assert temp_path_out.exists() and temp_path_out.is_dir()
+        log.debug("Created temp output dir: %s", temp_path_out)
 
-            assert temp_path_out.exists() and temp_path_out.is_dir()
-
-            do_conversion(input_path, output_path, temp_path_in, temp_path_out)
+        do_conversion(input_path, output_path, temp_path_in, temp_path_out)
 
     log.debug("All done")
 
