@@ -32,6 +32,13 @@ from vic.models import (
     VespucciInertialCsvDataset,
 )
 
+PACKAGE_NAME = "vic"
+
+DIGEST_READ_BUFFER_LENGTH = 512 * 2**4
+FILENAME_DIGEST_TRUNCATION_LENGTH = 8
+
+log: logging.Logger = cast(logging.Logger, None)
+
 
 @click.command()
 @click.argument("input-dir")
@@ -90,19 +97,13 @@ def run(input_dir: str, output_dir: str, log_level: str) -> None:
 
         _ = shutil.copytree(input_path, temp_path_in, dirs_exist_ok=True)
 
-        do_conversion(temp_path_in, temp_path_out)
+        dat_to_csv(temp_path_in, temp_path_out)
+
+        assemble_metadata(temp_path_in, temp_path_out)
 
         _ = shutil.copytree(temp_path_out, output_path, dirs_exist_ok=True)
 
     log.debug("All done")
-
-
-PACKAGE_NAME = "vic"
-
-DIGEST_READ_BUFFER_LENGTH = 512 * 2**4
-FILENAME_DIGEST_TRUNCATION_LENGTH = 8
-
-log: logging.Logger = cast(logging.Logger, None)
 
 
 @no_type_check
@@ -115,29 +116,7 @@ def get_sensor_config_unit(component: Component, config_entry: str) -> str:
         raise Exception("Cannot get sensor config unit")
 
 
-def do_conversion(temp_path_in: Path, temp_path_out: Path) -> None:
-
-    log.info("Starting conversion program...")
-
-    _process = sp.run(
-        (
-            "python",
-            str(Path(__file__).parent.joinpath("hsdatalog_to_unico.py")),
-            "-s",
-            "all",
-            "-t",
-            "-f",
-            "CSV",
-            "-o",
-            str(temp_path_out),
-            str(temp_path_in),
-        ),
-        stdout=sys.stdout,
-        stderr=sys.stderr,
-        check=True,
-    )
-
-    log.info("Conversion from `.dat` succeeded")
+def assemble_metadata(temp_path_in: Path, temp_path_out: Path) -> None:
 
     log.debug("Assembling dataset metadata")
 
@@ -280,3 +259,28 @@ def do_conversion(temp_path_in: Path, temp_path_out: Path) -> None:
 
     with open(temp_path_out.joinpath("dataset-meta.json"), "wt") as file_handle:
         file_handle.write(dataset.model_dump_json(indent=2))
+
+
+def dat_to_csv(temp_path_in: Path, temp_path_out: Path) -> None:
+
+    log.info("Starting conversion program...")
+
+    _process = sp.run(
+        (
+            "python",
+            str(Path(__file__).parent.joinpath("hsdatalog_to_unico.py")),
+            "-s",
+            "all",
+            "-t",
+            "-f",
+            "CSV",
+            "-o",
+            str(temp_path_out),
+            str(temp_path_in),
+        ),
+        stdout=sys.stdout,
+        stderr=sys.stderr,
+        check=True,
+    )
+
+    log.info("Conversion from `.dat` succeeded")
