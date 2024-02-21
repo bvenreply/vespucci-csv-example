@@ -149,13 +149,17 @@
             "type": "object",
             "description": "Component-specific metadata",
             "required": [
-                "name",
+                "type",
                 "config"
             ],
             "properties": {
                 "name": {
                     "type": "string",
                     "description": "Component name"
+                },
+                "type": {
+                    "type": "string",
+                    "description":  "Component type, e.g. acc, gyro, etc"
                 },
                 "config": {
                     "type": "object",
